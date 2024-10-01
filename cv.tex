@@ -1,10 +1,8 @@
-%% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
+%% Use the "normalphoto" option for normal photo instead of cropped to circle
 % \documentclass[10pt,a4paper,normalphoto]{altacv}
 \documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
 
-%% AltaCV uses the fontawesome and academicon fonts
-%% and packages.
-%% See texdoc.net/pkg/fontawecome and http://texdoc.net/pkg/academicons for full list of symbols. You MUST compile with XeLaTeX or LuaLaTeX if you want to use academicons.
+%%MUST compile with XeLaTeX or LuaLaTeX
 
 % Change the page layout if you need to
 %\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
@@ -30,13 +28,9 @@
 \colorlet{emphasis}{Black}
 \colorlet{body}{Gray}
 
-% Change the bullets for itemize and rating marker
-% for \cvskill if you want to
+% Change the bullets for itemize and rating marker for \cvskill
 \renewcommand{\itemmarker}{{\small\textbullet}}
 \renewcommand{\ratingmarker}{\faCircle}
-
-%% sample.bib contains your publications
-%%\addbibresource{sample.bib}
 
 \begin{document}
 \photo{2.5cm}{Enoch}
@@ -49,17 +43,14 @@
     \location{Phoenix, AZ}
 }
 
-%% Make the header extend all the way to the right, if you want.
+%% Make the header extend all the way to the right
 \marginpar{\input{page0sidebar}}
 \makecvheader
 
-%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+%% Make fonts of itemize environments slightly smaller
 \AtBeginEnvironment{itemize}{\small}
 
-%% Provide the file name containing the sidebar contents as an optional parameter to \cvsection.
-%% You can always just use \marginpar{...} if you do
-%% not need to align the top of the contents to any
-%% \cvsection title in the "main" bar.
+
 \cvsection[page1sidebar]{Experience}
 \cvevent{Technology Support Specialist}{Tolleson Union High School District}{Jun 2022 -- Ongoing}{Phoenix, AZ}
 \begin{itemize}
@@ -97,11 +88,5 @@
 \end{itemize}
 
 \clearpage
-%% If the NEXT page doesn't start with a \cvsection but you'd
-%% still like to add a sidebar, then use this command on THIS
-%% page to add it. The optional argument lets you pull up the
-%% sidebar a bit so that it looks aligned with the top of the
-%% main column.
-% \addnextpagesidebar[-1ex]{page3sidebar}
 
 \end{document}

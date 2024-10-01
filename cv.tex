@@ -11,18 +11,10 @@
 %\geometry{left=1cm,right=9cm,marginparwidth=13.6cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm,landscape}
 \geometry{left=0.99cm,right=14.99cm,marginparwidth=14cm,marginparsep=0.99cm,top=0.5cm,bottom=0.5cm,landscape}
 
-\ifxetexorluatex
-  % If using xelatex or lualatex:
-  \setmainfont{NotoSans_Condensed-Regular}[
-    Path = ./fonts/,
-    Extension = .ttf
+\setmainfont{NotoSans_Condensed-Regular}[
+  Path = ./fonts/,
+  Extension = .ttf
 ]
-\else
-  % If using pdflatex:
-  \usepackage[utf8]{inputenc}
-  \usepackage[T1]{fontenc}
-  \usepackage[default]{lato}
-\fi
 \usepackage{multicol}
 \usepackage{ragged2e}
 \usepackage{etoolbox}

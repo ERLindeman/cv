@@ -1,0 +1,119 @@
+%% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
+% \documentclass[10pt,a4paper,normalphoto]{altacv}
+%\documentclass[10pt,a4paper,ragged2e]{altacv}
+\documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
+
+%% AltaCV uses the fontawesome and academicon fonts
+%% and packages.
+%% See texdoc.net/pkg/fontawecome and http://texdoc.net/pkg/academicons for full list of symbols. You MUST compile with XeLaTeX or LuaLaTeX if you want to use academicons.
+
+% Change the page layout if you need to
+%\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
+\geometry{left=0.99cm,right=14.99cm,marginparwidth=14cm,marginparsep=0.99cm,top=0.5cm,bottom=0.5cm,landscape}
+%\geometry{left=1cm,right=9cm,marginparwidth=13.6cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm,landscape}
+
+%%\makeatletter
+%%\setlength{\@columnwidth}{\marginparwidth}
+%%\makeatother
+
+% Change the font if you want to, depending on whether
+% you're using pdflatex or xelatex/lualatex
+\ifxetexorluatex
+  % If using xelatex or lualatex:
+  \setmainfont{Noto Sans Condensed}
+\else
+  % If using pdflatex:
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+  \usepackage[default]{lato}
+\fi
+\usepackage{multicol}
+\usepackage{ragged2e}
+\usepackage{etoolbox}
+\AtBeginEnvironment{itemize}{\justifying}
+
+
+% Change the colours if you want to
+\definecolor{Azure}{HTML}{007FFF}
+\definecolor{Gray}{HTML}{7F7F7F}
+\definecolor{Black}{HTML}{000000}
+\colorlet{heading}{Azure}
+\colorlet{accent}{Azure}
+\colorlet{emphasis}{Black}
+\colorlet{body}{Gray}
+
+% Change the bullets for itemize and rating marker
+% for \cvskill if you want to
+\renewcommand{\itemmarker}{{\small\textbullet}}
+\renewcommand{\ratingmarker}{\faCircle}
+
+%% sample.bib contains your publications
+%%\addbibresource{sample.bib}
+
+\begin{document}
+\photo{2.5cm}{Enoch}
+\name{Enoch Lindeman}
+\tagline{Technology Support Specialist, Software Developer, \\Entrepreneur, \& Business Leader}
+\personalinfo{
+    \mailaddress{enoch@lindeman.group}
+    \phone{(623) 565-3064}\\
+    \linkedin{www.linkedin.com/in/enoch-lindeman}
+    \location{Phoenix, AZ}
+}
+
+%% Make the header extend all the way to the right, if you want.
+\marginpar{\input{page0sidebar}}
+\makecvheader
+
+%% Depending on your tastes, you may want to make fonts of itemize environments slightly smaller
+\AtBeginEnvironment{itemize}{\small}
+
+%% Provide the file name containing the sidebar contents as an optional parameter to \cvsection.
+%% You can always just use \marginpar{...} if you do
+%% not need to align the top of the contents to any
+%% \cvsection title in the "main" bar.
+\cvsection[page1sidebar]{Experience}
+\cvevent{Technology Support Specialist}{Tolleson Union High School District}{Jun 2022 -- Ongoing}{Phoenix, AZ}
+\begin{itemize}
+\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\end{itemize}
+\divider
+
+\cvevent{Owner}{by The Lindemans}{Dec 2022 -- Ongoing}{Phoenix, AZ}
+\begin{itemize}
+	\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+	\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\end{itemize}
+\divider
+
+\cvevent{Mission Technology Specialist}{The Church of Jesus Christ of Latter-Day Saints}{May 2020 -- May 2022}{Syracuse, NY}
+\begin{itemize}
+\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\end{itemize}
+
+\cvsection{Education}
+\cvevent{Master of Science in Computer Science}{Arizona State University}{Expected May 2027}{Phoenix, AZ}
+\begin{itemize}
+\item Emphasis in Big Data Systems (Data Science and Artificial Intelligence)
+\item Currently 4.0 GPA  
+\item Working through general education requirements at Rio Salado College
+\end{itemize}
+\divider
+
+\cvevent{High School Diploma}{Westview High School}{May 2019}{Phoenix, AZ}
+\begin{itemize}
+\item  3.6 GPA
+\item  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+\end{itemize}
+
+\clearpage
+%% If the NEXT page doesn't start with a \cvsection but you'd
+%% still like to add a sidebar, then use this command on THIS
+%% page to add it. The optional argument lets you pull up the
+%% sidebar a bit so that it looks aligned with the top of the
+%% main column.
+% \addnextpagesidebar[-1ex]{page3sidebar}
+
+\end{document}

@@ -178,7 +178,7 @@
 
 \usepackage{fontspec} 
 
-\renewenvironment{quote}{\color{emphasis}\itshape\large\fontspec{NotoSansMono-Regular}[
+\renewenvironment{quote}{\color{emphasis}\itshape\large\fontspec{NotoSansMono_ExtraCondensed-Medium}[
     Path = ./fonts/,
     Extension = .ttf
 ]}{\par}

@@ -1,6 +1,5 @@
 %% Use the "normalphoto" option if you want a normal photo instead of cropped to a circle
 % \documentclass[10pt,a4paper,normalphoto]{altacv}
-%\documentclass[10pt,a4paper,ragged2e]{altacv}
 \documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
 
 %% AltaCV uses the fontawesome and academicon fonts
@@ -9,18 +8,15 @@
 
 % Change the page layout if you need to
 %\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
-\geometry{left=0.99cm,right=14.99cm,marginparwidth=14cm,marginparsep=0.99cm,top=0.5cm,bottom=0.5cm,landscape}
 %\geometry{left=1cm,right=9cm,marginparwidth=13.6cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm,landscape}
+\geometry{left=0.99cm,right=14.99cm,marginparwidth=14cm,marginparsep=0.99cm,top=0.5cm,bottom=0.5cm,landscape}
 
-%%\makeatletter
-%%\setlength{\@columnwidth}{\marginparwidth}
-%%\makeatother
-
-% Change the font if you want to, depending on whether
-% you're using pdflatex or xelatex/lualatex
 \ifxetexorluatex
   % If using xelatex or lualatex:
-  \setmainfont{Noto Sans Condensed}
+  \setmainfont{NotoSans_Condensed-Regular}[
+    Path = ./fonts/,
+    Extension = .ttf
+]
 \else
   % If using pdflatex:
   \usepackage[utf8]{inputenc}

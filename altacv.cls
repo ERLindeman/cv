@@ -176,9 +176,13 @@
 }
 
 
-\usepackage{fontspec} % Use this line in the preamble of your document
+\usepackage{fontspec} 
 
-\renewenvironment{quote}{\color{emphasis}\itshape\large\fontspec{Noto Sans Mono}}{\par}
+\renewenvironment{quote}{\color{emphasis}\itshape\large\fontspec{NotoSansMono-Regular}[
+    Path = ./fonts/,
+    Extension = .ttf
+]}{\par}
+
 
 
 %%\newcommand{\cvsection}[2][]{%

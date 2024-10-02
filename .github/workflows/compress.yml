@@ -86,23 +86,54 @@ jobs:
              -dNOPAUSE -dQUIET -dBATCH \
              -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
 
-      # 11. Configure Git
+      # 11. Compile Standard References using latex-action@v2
+      - name: Compile Standard References
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: references.tex
+          compiler: 'latexmk'
+          args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true
+
+      # 12. Generate Monochrome References tex file
+      - name: Generate Monochrome References tex file
+        run: |
+          echo '\def\monochrome{}\def\excludephoto{}\input{references.tex}' > references_monochrome.tex
+
+      # 13. Compile Monochrome References using latex-action@v2
+      - name: Compile Monochrome References
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: references_monochrome.tex
+          compiler: 'latexmk'
+          args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true
+
+      # 14. Compress Monochrome References PDF
+      - name: Compress Monochrome References PDF
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=references_monochrome_compressed.pdf references_monochrome.pdf
+
+      # 15. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 12. Add PDF files to Git
+      # 16. Add PDF files to Git
       - name: Add PDF files
         run: |
-          git add cv.pdf cover_letter.pdf cv_monochrome.pdf cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
+          git add cv.pdf cover_letter.pdf references.pdf \
+                  cv_monochrome_compressed.pdf cover_letter_monochrome_compressed.pdf references_monochrome_compressed.pdf
 
-      # 13. Commit changes
+      # 17. Commit changes
       - name: Commit PDFs
         run: |
-          git commit -m "Update CV and Cover Letter PDFs [skip ci]" || echo "No changes to commit"
+          git commit -m "Update CV, Cover Letter, and References PDFs [skip ci]" || echo "No changes to commit"
 
-      # 14. Push changes
+      # 18. Push changes
       - name: Push PDFs
         run: |
           git push origin HEAD:${GITHUB_REF#refs/heads/}

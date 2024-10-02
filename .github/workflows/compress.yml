@@ -84,34 +84,23 @@ jobs:
              -dNOPAUSE -dQUIET -dBATCH \
              -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
 
-      # 11. Upload Standard CV PDF
-      - name: Upload Standard CV PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: Standard-CV-PDF
-          path: |
-            cv.pdf
+      # 11. Configure Git
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 12. Upload Monochrome Compressed CV PDF
-      - name: Upload Monochrome Compressed CV PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: Monochrome-Compressed-CV-PDF
-          path: |
-            cv_monochrome_compressed.pdf
+      # 12. Add PDF files to Git
+      - name: Add PDF files
+        run: |
+          git add cv.pdf cover_letter.pdf cv_monochrome.pdf cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
 
-      # 13. Upload Standard Cover Letter PDF
-      - name: Upload Standard Cover Letter PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: Standard-Cover-Letter-PDF
-          path: |
-            cover_letter.pdf
+      # 13. Commit changes
+      - name: Commit PDFs
+        run: |
+          git commit -m "Update CV and Cover Letter PDFs [skip ci]" || echo "No changes to commit"
 
-      # 14. Upload Monochrome Compressed Cover Letter PDF
-      - name: Upload Monochrome Compressed Cover Letter PDF
-        uses: actions/upload-artifact@v3
-        with:
-          name: Monochrome-Compressed-Cover-Letter-PDF
-          path: |
-            cover_letter_monochrome_compressed.pdf
+      # 14. Push changes
+      - name: Push PDFs
+        run: |
+          git push origin HEAD:${GITHUB_REF#refs/heads/}

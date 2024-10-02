@@ -1,13 +1,12 @@
-# .github/workflows/build_cv.yml
 name: Build CV and Cover Letter
 
 on:
   push:
     branches:
-      - '**'       # Triggers on all branches
+      - '**'
   pull_request:
     branches:
-      - '**'       # Triggers on PRs to any branch
+      - '**'
 
 jobs:
   build:
@@ -24,9 +23,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
 
-      # 3. Verify Ghostscript Installation
+      # 3. (Optional) Verify Ghostscript Installation
       - name: Verify Ghostscript Installation
-        run: gs --version
+        run: |
+          gs --version
 
       # 4. Compile Standard CV
       - name: Compile Standard CV
@@ -36,7 +36,7 @@ jobs:
       # 5. Compile Monochrome CV
       - name: Compile Monochrome CV
         run: |
-          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cv.tex} -jobname=cv_monochrome" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cv.tex
+          latexmk -xelatex '\def\monochrome{}\def\includephoto{} \input{cv.tex} -jobname=cv_monochrome' -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cv.tex
 
       # 6. Compress Monochrome CV PDF
       - name: Compress Monochrome CV PDF
@@ -53,7 +53,7 @@ jobs:
       # 8. Compile Monochrome Cover Letter
       - name: Compile Monochrome Cover Letter
         run: |
-          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cover_letter.tex} -jobname=cover_letter_monochrome" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cover_letter.tex
+          latexmk -xelatex '\def\monochrome{}\def\includephoto{} \input{cover_letter.tex} -jobname=cover_letter_monochrome' -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cover_letter.tex
 
       # 9. Compress Monochrome Cover Letter PDF
       - name: Compress Monochrome Cover Letter PDF

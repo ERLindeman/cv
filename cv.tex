@@ -1,7 +1,19 @@
 \input{preamble.tex}
 
+\ifmonochrome
+  \definecolor{Azure}{HTML}{000000}
+  \definecolor{Gray}{HTML}{7F7F7F}
+  \definecolor{Black}{HTML}{000000}
+  \colorlet{heading}{Black}
+  \colorlet{accent}{Black}
+  \colorlet{emphasis}{Black}
+  \colorlet{body}{Gray}
+\fi
+
 \begin{document}
-\photo{2.5cm}{Enoch}
+\ifincludephoto
+  \photo{2.5cm}{Enoch}
+\fi
 \name{Enoch Lindeman}
 \tagline{Technology Support Specialist / Help Desk \\Cofounder \& Owner, by The Lindemans, LLC}
 \personalinfo{
@@ -11,11 +23,9 @@
   \location{San Diego, CA}
 }
 
-%% Make the header extend all the way to the right
 \marginpar{\input{page0sidebar}}
 \makecvheader
 
-%% Make fonts of itemize environments slightly smaller
 \AtBeginEnvironment{itemize}{\small}
 \setlength{\columnsep}{0.5cm}
 

@@ -1,21 +1,32 @@
+% preamble.tex
 \documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
 
-%%MUST compile with XeLaTeX or LuaLaTeX
+%% MUST compile with XeLaTeX or LuaLaTeX
 
-% Change the page layout if you need to
-%\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
-%\geometry{left=1cm,right=9cm,marginparwidth=13.6cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm,landscape}
-\geometry{left=0.5cm,right=14.5cm,marginparwidth=14cm,marginparsep=0.5cm,top=0.5cm,bottom=0.5cm,landscape}
+% Page layout
+\geometry{
+  left=0.5cm,
+  right=14.5cm,
+  marginparwidth=14cm,
+  marginparsep=0.5cm,
+  top=0.5cm,
+  bottom=0.5cm,
+  landscape
+}
 
+% Font settings
 \setmainfont{NotoSans_ExtraCondensed-Regular}[
   Path = ./fonts/,
   Extension = .ttf
 ]
+
+% Packages
 \usepackage{multicol}
 \usepackage{ragged2e}
 \usepackage{etoolbox}
 \AtBeginEnvironment{itemize}{\justifying}
 
+% Color definitions
 \definecolor{Azure}{HTML}{007FFF}
 \definecolor{Gray}{HTML}{7F7F7F}
 \definecolor{Black}{HTML}{000000}
@@ -24,6 +35,27 @@
 \colorlet{emphasis}{Black}
 \colorlet{body}{Gray}
 
-% Change the bullets for itemize and rating marker for \cvskill
+% Customizations
 \renewcommand{\itemmarker}{{\small\textbullet}}
 \renewcommand{\ratingmarker}{\faCircle}
+
+% Adjust itemize fonts
+\AtBeginEnvironment{itemize}{\small}
+\setlength{\columnsep}{0.5cm}
+
+% Conditional flags
+\newif\ifmonochrome
+\newif\ifincludephoto
+
+% Set defaults
+\monochromefalse
+\includephototrue
+
+% If flags are defined externally, set them accordingly
+\ifdefined\monochrome
+  \monochrometrue
+\fi
+
+\ifdefined\includephoto
+  \includephototrue
+\fi

@@ -31,6 +31,7 @@ jobs:
           root_file: cv.tex
           compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true  # Continue workflow even if this step fails
 
       # 4. Generate Monochrome CV tex file
       - name: Generate Monochrome CV tex file
@@ -44,13 +45,18 @@ jobs:
           root_file: cv_monochrome.tex
           compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true  # Continue workflow even if this step fails
 
       # 6. Compress Monochrome CV PDF
       - name: Compress Monochrome CV PDF
         run: |
-          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
-             -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
+          if [ -f "cv_monochrome.pdf" ]; then
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+               -dNOPAUSE -dQUIET -dBATCH \
+               -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
+          else
+            echo "Monochrome CV PDF not found. Skipping compression."
+          fi
 
       # 7. Compile Standard Cover Letter using latex-action@v2
       - name: Compile Standard Cover Letter
@@ -59,6 +65,7 @@ jobs:
           root_file: cover_letter.tex
           compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true  # Continue workflow even if this step fails
 
       # 8. Generate Monochrome Cover Letter tex file
       - name: Generate Monochrome Cover Letter tex file
@@ -72,13 +79,18 @@ jobs:
           root_file: cover_letter_monochrome.tex
           compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+        continue-on-error: true  # Continue workflow even if this step fails
 
       # 10. Compress Monochrome Cover Letter PDF
       - name: Compress Monochrome Cover Letter PDF
         run: |
-          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
-             -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
+          if [ -f "cover_letter_monochrome.pdf" ]; then
+            gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+               -dNOPAUSE -dQUIET -dBATCH \
+               -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
+          else
+            echo "Monochrome Cover Letter PDF not found. Skipping compression."
+          fi
 
       # 11. Upload Standard CV PDF
       - name: Upload Standard CV PDF

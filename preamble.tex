@@ -1,5 +1,3 @@
-% preamble.tex
-
 \documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
 
 %% MUST compile with XeLaTeX or LuaLaTeX
@@ -53,6 +51,17 @@
   \monochrometrue
 \fi
 
-\ifdefined\includephoto
-  \includephototrue
+\ifdefined\includephotofalse
+  \includephotofalse
+\fi
+
+% Conditional color settings
+\ifmonochrome
+  \definecolor{Azure}{HTML}{000000}
+  \definecolor{Gray}{HTML}{7F7F7F}
+  \definecolor{Black}{HTML}{000000}
+  \colorlet{heading}{Black}
+  \colorlet{accent}{Black}
+  \colorlet{emphasis}{Black}
+  \colorlet{body}{Gray}
 \fi

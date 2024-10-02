@@ -4,10 +4,10 @@ name: Build CV and Cover Letter
 on:
   push:
     branches:
-      - '**'
+      - '**'       # Triggers on all branches
   pull_request:
     branches:
-      - '**'
+      - '**'       # Triggers on PRs to any branch
 
 jobs:
   build:
@@ -31,9 +31,9 @@ jobs:
         with:
           root_file: cv.tex
           compiler: 'xelatex'
-          args: '\def\monochrome{}\def\includephoto{} \input{cv.tex} -jobname=cv_monochrome'
+          args: '-jobname=cv_monochrome "\def\monochrome{}\def\includephoto{}\input{cv.tex}"'
 
-      # **4. Install Ghostscript**
+      # 4. Install Ghostscript
       - name: Install Ghostscript
         run: |
           sudo apt-get update
@@ -59,9 +59,9 @@ jobs:
         with:
           root_file: cover_letter.tex
           compiler: 'xelatex'
-          args: '\def\monochrome{}\def\includephoto{} \input{cover_letter.tex} -jobname=cover_letter_monochrome'
+          args: '-jobname=cover_letter_monochrome "\def\monochrome{}\def\includephoto{}\input{cover_letter.tex}"'
 
-      # **8. Compress Monochrome Cover Letter PDF**
+      # 8. Compress Monochrome Cover Letter PDF
       - name: Compress Monochrome Cover Letter PDF
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \

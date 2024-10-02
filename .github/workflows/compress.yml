@@ -29,7 +29,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
-          compiler: 'xelatex'
+          compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       # 4. Generate Monochrome CV tex file
@@ -42,7 +42,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv_monochrome.tex
-          compiler: 'xelatex'
+          compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       # 6. Compress Monochrome CV PDF
@@ -57,7 +57,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter.tex
-          compiler: 'xelatex'
+          compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       # 8. Generate Monochrome Cover Letter tex file
@@ -70,7 +70,7 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter_monochrome.tex
-          compiler: 'xelatex'
+          compiler: 'latexmk'  # Use latexmk as the compiler
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       # 10. Compress Monochrome Cover Letter PDF

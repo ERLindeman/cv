@@ -1,9 +1,7 @@
-% preamble.tex
 \documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
 
 %% MUST compile with XeLaTeX or LuaLaTeX
 
-% Page layout
 \geometry{
   left=0.5cm,
   right=14.5cm,
@@ -14,19 +12,16 @@
   landscape
 }
 
-% Font settings
 \setmainfont{NotoSans_ExtraCondensed-Regular}[
   Path = ./fonts/,
   Extension = .ttf
 ]
 
-% Packages
 \usepackage{multicol}
 \usepackage{ragged2e}
 \usepackage{etoolbox}
 \AtBeginEnvironment{itemize}{\justifying}
 
-% Color definitions
 \definecolor{Azure}{HTML}{007FFF}
 \definecolor{Gray}{HTML}{7F7F7F}
 \definecolor{Black}{HTML}{000000}

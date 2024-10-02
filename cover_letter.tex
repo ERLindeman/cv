@@ -1,6 +1,17 @@
 \input{preamble.tex}
 
-% Override Geometry for Portrait Layout
+\newcommand{\RecipientName}{[Recipient's Name]}
+\newcommand{\RecipientPosition}{[Recipient's Position]}
+\newcommand{\CompanyName}{[Company Name]}
+\newcommand{\CompanyAddress}{[Company Address]}
+\newcommand{\CompanyCityStateZIP}{[City, CA, ZIP]}
+\newcommand{\JobSource}{[Job Board/Company Website/Recruiter]}
+\newcommand{\SpecificReason}{[Specific reason related to the company or position]}
+
+% Remove Photo and Margin Notes
+\renewcommand{\photo}[2]{}
+\renewcommand{\marginpar}[1]{}
+
 \geometry{
   left=2cm,
   right=2cm,
@@ -9,48 +20,50 @@
   portrait
 }
 
+\setmainfont{NotoSans-Regular}[
+  Path = ./fonts/,
+  Extension = .ttf
+]
+\colorlet{body}{Black}
+
 \begin{document}
 
-\begin{minipage}[t]{0.45\textwidth}
-  \name{Enoch Lindeman}
-  \tagline{Technology Support Specialist / Help Desk \\Cofounder \& Owner, by The Lindemans, LLC}
-  \personalinfo{
-    \mailaddress{enoch@lindeman.family} \\
-    \phone{(619) 333-8221} \\
-    \linkedin{www.linkedin.com/in/enoch-lindeman} \\
-    \location{San Diego, CA}
-  }
-\end{minipage}
-\hfill
-\begin{minipage}[t]{0.45\textwidth}
-  \vspace{0pt} % Align to top
-  \date{\today}
-\end{minipage}
+\name{Enoch Lindeman}
+\tagline{Technology Support Specialist / Help Desk \\Cofounder \& Owner, by The Lindemans, LLC}
+\personalinfo{
+	\mailaddress{enoch@lindeman.family} \\
+	\phone{(619) 333-8221} \\
+	\linkedin{www.linkedin.com/in/enoch-lindeman} \\
+	\location{San Diego, CA}
+}
 
-\vspace{1cm} 
+\makecvheader
 
-\textbf{[Recipient's Name]} \\
-\textbf{[Recipient's Position]} \\
-\textbf{[Company Name]} \\
-\textbf{[Company Address]} \\
-\textbf{[City, State, ZIP]}
+\vspace{1cm}
+
+\textbf{\RecipientName} \\
+\textbf{\RecipientPosition} \\
+\textbf{\CompanyName} \\
+\textbf{\CompanyAddress} \\
+\textbf{\CompanyCityStateZIP}
 
 \vspace{0.5cm}
 
-\noindent Dear [Recipient's Name],
+\noindent Dear \RecipientName,
 
 \vspace{0.5cm}
 
 \justifying
-I am writing to express my interest in the [Position Title] at [Company Name], as advertised on [Job Board/Company Website]. With a strong background in technology support and a proven track record in managing large-scale IT deployments, I am confident in my ability to contribute effectively to your team.
+
+I am writing to express my interest in the \textbf{\RecipientPosition} at \textbf{\CompanyName}, as advertised by \textbf{\JobSource}. With a strong background in technology support and a proven track record in managing large-scale IT deployments, I am confident in my ability to contribute effectively to your team.
 
 During my tenure at Tolleson Union High School District, I oversaw the deployment of over 3,000 devices, ensuring that all staff and students had the necessary tools to facilitate a seamless educational environment. My experience in developing support applications, such as the Microsoft Power App for 14,000 users, has honed my skills in creating efficient solutions that significantly reduce user requests and improve overall system performance.
 
 As the Owner of by The Lindemans, I have successfully established an online media and retail presence, demonstrating my ability to build and manage a brand across multiple platforms. My strategic marketing efforts have resulted in a 3:1 return on investment in ad spend, showcasing my aptitude for data-driven decision-making and effective resource allocation.
 
-I am particularly excited about the opportunity at [Company Name] because of [specific reason related to the company or position]. I am eager to bring my expertise in technology support and strategic management to your organization, contributing to your ongoing success and innovation.
+I am particularly excited about the opportunity at \textbf{\CompanyName} because of \textbf{\SpecificReason}. I am eager to bring my expertise in technology support and strategic management to your organization, contributing to your ongoing success and innovation.
 
-\vspace{0.5cm} % Space before closing
+\vspace{0.5cm}
 
 \noindent Sincerely, \\
 \noindent \textbf{Enoch Lindeman}

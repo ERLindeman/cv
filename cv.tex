@@ -1,32 +1,4 @@
-\documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
-
-%%MUST compile with XeLaTeX or LuaLaTeX
-
-% Change the page layout if you need to
-%\geometry{left=1cm,right=9cm,marginparwidth=6.8cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm}
-%\geometry{left=1cm,right=9cm,marginparwidth=13.6cm,marginparsep=1.2cm,top=1.25cm,bottom=1.25cm,landscape}
-\geometry{left=0.5cm,right=14.5cm,marginparwidth=14cm,marginparsep=0.5cm,top=0.5cm,bottom=0.5cm,landscape}
-
-\setmainfont{NotoSans_ExtraCondensed-Regular}[
-  Path = ./fonts/,
-  Extension = .ttf
-]
-\usepackage{multicol}
-\usepackage{ragged2e}
-\usepackage{etoolbox}
-\AtBeginEnvironment{itemize}{\justifying}
-
-\definecolor{Azure}{HTML}{007FFF}
-\definecolor{Gray}{HTML}{7F7F7F}
-\definecolor{Black}{HTML}{000000}
-\colorlet{heading}{Azure}
-\colorlet{accent}{Azure}
-\colorlet{emphasis}{Black}
-\colorlet{body}{Gray}
-
-% Change the bullets for itemize and rating marker for \cvskill
-\renewcommand{\itemmarker}{{\small\textbullet}}
-\renewcommand{\ratingmarker}{\faCircle}
+\input{preamble.tex}
 
 \begin{document}
 \photo{2.5cm}{Enoch}
@@ -137,24 +109,4 @@
 \begin{itemize}
   \item  Graduated Summa Cum Laude with 3.9 GPA
 \end{itemize}
-
-\clearpage
-\begin{minipage}[]{28cm}
-  \cvsection{References}
-  \begin{minipage}{9cm}
-    \cvref{Joshua Davis}{joshuadavis@alhambraesd.org}{(951) 389-8795}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{9cm}
-    \cvref{Joshua Davis}{joshua.davis@foo.org}{(951) 389-8795}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{9cm}
-    \cvref{Joshua Davis}{joshua.davis@bar.org}{(951) 389-8795}
-  \end{minipage}
-  \begin{center}
-    Authorized to work in the US for any employer
-  \end{center}
-\end{minipage}
-
 \end{document}

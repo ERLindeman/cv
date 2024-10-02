@@ -1,5 +1,5 @@
 # .github/workflows/build_cv.yml
-name: Build CV
+name: Build CV and Cover Letter
 
 on:
   push:
@@ -25,18 +25,37 @@ jobs:
       - name: Install Ghostscript
         run: sudo apt-get update && sudo apt-get install -y ghostscript
 
+      # Compile Standard CV
       - name: Compile Standard CV
         run: |
           latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cv.tex
 
+      # Compile Monochrome CV
       - name: Compile Monochrome CV
         run: |
           latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cv.tex}" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. -jobname=cv_monochrome cv.tex
 
-      - name: Compress Monochrome PDF
+      # Compress Monochrome CV PDF
+      - name: Compress Monochrome CV PDF
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
 
+      # Compile Standard Cover Letter
+      - name: Compile Standard Cover Letter
+        run: |
+          latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cover_letter.tex
+
+      # Compile Monochrome Cover Letter
+      - name: Compile Monochrome Cover Letter
+        run: |
+          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cover_letter.tex}" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. -jobname=cover_letter_monochrome cover_letter.tex
+
+      # Compress Monochrome Cover Letter PDF
+      - name: Compress Monochrome Cover Letter PDF
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
+
+      # Upload Standard CV PDF
       - name: Upload Standard CV PDF
         uses: actions/upload-artifact@v3
         with:
@@ -44,9 +63,26 @@ jobs:
           path: |
             cv.pdf
 
+      # Upload Monochrome Compressed CV PDF
       - name: Upload Monochrome Compressed CV PDF
         uses: actions/upload-artifact@v3
         with:
           name: Monochrome-Compressed-CV-PDF
           path: |
             cv_monochrome_compressed.pdf
+
+      # Upload Standard Cover Letter PDF
+      - name: Upload Standard Cover Letter PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: Standard-Cover-Letter-PDF
+          path: |
+            cover_letter.pdf
+
+      # Upload Monochrome Compressed Cover Letter PDF
+      - name: Upload Monochrome Compressed Cover Letter PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: Monochrome-Compressed-Cover-Letter-PDF
+          path: |
+            cover_letter_monochrome_compressed.pdf

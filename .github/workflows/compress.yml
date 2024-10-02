@@ -1,0 +1,52 @@
+# .github/workflows/build_cv.yml
+name: Build CV
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up LaTeX
+        uses: xu-cheng/latex-action@v2
+        with:
+          compiler: 'xelatex'
+
+      - name: Install Ghostscript
+        run: sudo apt-get update && sudo apt-get install -y ghostscript
+
+      - name: Compile Standard CV
+        run: |
+          latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cv.tex
+
+      - name: Compile Monochrome CV
+        run: |
+          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cv.tex}" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. -jobname=cv_monochrome cv.tex
+
+      - name: Compress Monochrome PDF
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
+
+      - name: Upload Standard CV PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: Standard-CV-PDF
+          path: |
+            cv.pdf
+
+      - name: Upload Monochrome Compressed CV PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: Monochrome-Compressed-CV-PDF
+          path: |
+            cv_monochrome_compressed.pdf

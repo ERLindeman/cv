@@ -4,10 +4,10 @@ name: Build CV and Cover Letter
 on:
   push:
     branches:
-      - '**'       # Triggers on all branches
+      - '**'
   pull_request:
     branches:
-      - '**'       # Triggers on PRs to any branch
+      - '**'
 
 jobs:
   build:
@@ -18,51 +18,51 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Install LaTeX and Dependencies
-      - name: Install LaTeX and Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
-
-      # 3. Install Ghostscript
-      - name: Install Ghostscript
-        run: sudo apt-get install -y ghostscript
-
-      # 4. Compile Standard CV
+      # 2. Compile Standard CV using latex-action
       - name: Compile Standard CV
-        run: |
-          latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cv.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cv.tex
+          compiler: 'xelatex'
 
-      # 5. Compile Monochrome CV
+      # 3. Compile Monochrome CV using latex-action
       - name: Compile Monochrome CV
-        run: |
-          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cv.tex}" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. -jobname=cv_monochrome cv.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cv.tex
+          compiler: 'xelatex'
+          args: "\def\monochrome{}\def\includephoto{} \input{cv.tex} -jobname=cv_monochrome"
 
-      # 6. Compress Monochrome CV PDF
+      # 4. Compress Monochrome CV PDF
       - name: Compress Monochrome CV PDF
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
              -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
 
-      # 7. Compile Standard Cover Letter
+      # 5. Compile Standard Cover Letter using latex-action
       - name: Compile Standard Cover Letter
-        run: |
-          latexmk -xelatex -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. cover_letter.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cover_letter.tex
+          compiler: 'xelatex'
 
-      # 8. Compile Monochrome Cover Letter
+      # 6. Compile Monochrome Cover Letter using latex-action
       - name: Compile Monochrome Cover Letter
-        run: |
-          latexmk -xelatex "\def\monochrome{}\def\includephoto{} \input{cover_letter.tex}" -synctex=1 -interaction=nonstopmode -file-line-error -outdir=. -jobname=cover_letter_monochrome cover_letter.tex
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cover_letter.tex
+          compiler: 'xelatex'
+          args: "\def\monochrome{}\def\includephoto{} \input{cover_letter.tex} -jobname=cover_letter_monochrome"
 
-      # 9. Compress Monochrome Cover Letter PDF
+      # 7. Compress Monochrome Cover Letter PDF
       - name: Compress Monochrome Cover Letter PDF
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
              -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
 
-      # 10. Upload Standard CV PDF
+      # 8. Upload Standard CV PDF
       - name: Upload Standard CV PDF
         uses: actions/upload-artifact@v3
         with:
@@ -70,7 +70,7 @@ jobs:
           path: |
             cv.pdf
 
-      # 11. Upload Monochrome Compressed CV PDF
+      # 9. Upload Monochrome Compressed CV PDF
       - name: Upload Monochrome Compressed CV PDF
         uses: actions/upload-artifact@v3
         with:
@@ -78,7 +78,7 @@ jobs:
           path: |
             cv_monochrome_compressed.pdf
 
-      # 12. Upload Standard Cover Letter PDF
+      # 10. Upload Standard Cover Letter PDF
       - name: Upload Standard Cover Letter PDF
         uses: actions/upload-artifact@v3
         with:
@@ -86,7 +86,7 @@ jobs:
           path: |
             cover_letter.pdf
 
-      # 13. Upload Monochrome Compressed Cover Letter PDF
+      # 11. Upload Monochrome Compressed Cover Letter PDF
       - name: Upload Monochrome Compressed Cover Letter PDF
         uses: actions/upload-artifact@v3
         with:

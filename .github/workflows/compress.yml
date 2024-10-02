@@ -36,7 +36,7 @@ jobs:
       # 4. Generate Monochrome CV tex file
       - name: Generate Monochrome CV tex file
         run: |
-          echo '\def\monochrome{}\def\includephotofalse{}\input{cv.tex}' > cv_monochrome.tex
+          echo '\def\monochrome{}\def\excludephoto{}\input{cv.tex}' > cv_monochrome.tex
 
       # 5. Compile Monochrome CV using latex-action@v2
       - name: Compile Monochrome CV
@@ -66,7 +66,7 @@ jobs:
       # 8. Generate Monochrome Cover Letter tex file
       - name: Generate Monochrome Cover Letter tex file
         run: |
-          echo '\def\monochrome{}\def\includephotofalse{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
+          echo '\def\monochrome{}\def\excludephoto{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
 
       # 9. Compile Monochrome Cover Letter using latex-action@v2
       - name: Compile Monochrome Cover Letter

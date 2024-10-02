@@ -1,18 +1,8 @@
 \input{preamble.tex}
 
-\ifmonochrome
-  \definecolor{Azure}{HTML}{000000}
-  \definecolor{Gray}{HTML}{7F7F7F}
-  \definecolor{Black}{HTML}{000000}
-  \colorlet{heading}{Black}
-  \colorlet{accent}{Black}
-  \colorlet{emphasis}{Black}
-  \colorlet{body}{Gray}
-\fi
-
 \begin{document}
 
-\ifincludephoto
+\ifnotexcludephoto
   \photo{2.5cm}{Enoch}
 \fi
 \name{Enoch Lindeman}

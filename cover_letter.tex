@@ -1,5 +1,7 @@
 \input{preamble.tex}
 
+\colorlet{body}{Black}
+
 \newcommand{\RecipientName}{[Recipient's Name]}
 \newcommand{\RecipientPosition}{[Recipient's Position]}
 \newcommand{\CompanyName}{[Company Name]}
@@ -8,14 +10,7 @@
 \newcommand{\JobSource}{[Job Board/Company Website/Recruiter]}
 \newcommand{\SpecificReason}{[Specific reason related to the company or position]}
 
-% Conditionally remove Photo and Margin Notes based on flags
-\ifincludephoto
-  % Include photo if needed (assuming you have a similar \photo command in the cover letter)
-  \photo{2.5cm}{Enoch}
-\else
-  % Redefine \photo to do nothing if photos are excluded
-  \renewcommand{\photo}[2]{}
-\fi
+\renewcommand{\photo}[2]{}
 
 % Remove Margin Notes only in monochrome mode
 \ifmonochrome

@@ -40,19 +40,19 @@
 
 % Conditional flags
 \newif\ifmonochrome
-\newif\ifincludephoto
+\newif\ifexcludephoto
 
 % Set defaults
 \monochromefalse
-\includephototrue
+\excludephotofalse
 
 % If flags are defined externally, set them accordingly
 \ifdefined\monochrome
   \monochrometrue
 \fi
 
-\ifdefined\includephotofalse
-  \includephotofalse
+\ifdefined\excludephoto
+  \excludephototrue
 \fi
 
 % Conditional color settings

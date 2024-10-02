@@ -18,30 +18,30 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Compile Standard CV using latex-action
+      # 2. Install LaTeX and Dependencies
+      - name: Install LaTeX and Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
+
+      # 3. Compile Standard CV using latex-action
       - name: Compile Standard CV
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
           compiler: 'xelatex'
 
-      # 3. Generate Monochrome CV tex file
+      # 4. Generate Monochrome CV tex file
       - name: Generate Monochrome CV tex file
         run: |
           echo '\def\monochrome{}\def\includephoto{}\input{cv.tex}' > cv_monochrome.tex
 
-      # 4. Compile Monochrome CV using latex-action
+      # 5. Compile Monochrome CV using latex-action
       - name: Compile Monochrome CV
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv_monochrome.tex
           compiler: 'xelatex'
-
-      # 5. Install Ghostscript
-      - name: Install Ghostscript
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ghostscript
 
       # 6. Compress Monochrome CV PDF
       - name: Compress Monochrome CV PDF

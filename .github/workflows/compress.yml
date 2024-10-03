@@ -20,13 +20,7 @@ jobs:
         with:
           persist-credentials: true  # Allows the workflow to push back to the repository
 
-      # 2. Install LaTeX and Dependencies
-      - name: Install LaTeX and Dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
-
-      # 3. Detect Changed Files
+      # 2. Detect Changed Files
       - name: Detect Changed Files
         id: filter
         uses: dorny/paths-filter@v2
@@ -44,6 +38,13 @@ jobs:
               - 'references.tex'
             references_pdf:
               - 'references.pdf'
+
+      # 3. Install LaTeX and Dependencies (only if any .tex files have changed)
+      - name: Install LaTeX and Dependencies
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
 
       # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
       - name: Compile Standard CV

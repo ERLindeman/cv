@@ -41,14 +41,19 @@ jobs:
             references_pdf:
               - 'references.pdf'
 
-      # 3. Install LaTeX and Dependencies (only if any .tex files have changed)
+      # 3. Install Ghostscript (always)
+      - name: Install Ghostscript
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ghostscript
+
+      # 4. Install LaTeX and Dependencies (only if any .tex files have changed)
       - name: Install LaTeX and Dependencies
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
+          sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
 
-      # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
+      # 5. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
       - name: Compile Standard CV
         if: ${{ (steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cv_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
@@ -66,7 +71,7 @@ jobs:
              -sOutputFile=cv_temp.pdf cv.pdf
           mv cv_temp.pdf cv.pdf
 
-      # 5. Compile and Compress Monochrome CV (if cv.tex changed)
+      # 6. Compile and Compress Monochrome CV (if cv.tex changed)
       - name: Generate Monochrome CV tex file
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
@@ -89,7 +94,7 @@ jobs:
              -sOutputFile=cv_monochrome_temp.pdf cv_monochrome.pdf
           mv cv_monochrome_temp.pdf cv_monochrome.pdf
 
-      # 6. Compile and Compress Standard Cover Letter (if cover_letter.tex changed and cover_letter.pdf not changed)
+      # 7. Compile and Compress Standard Cover Letter (if cover_letter.tex changed and cover_letter.pdf not changed)
       - name: Compile Standard Cover Letter
         if: ${{ (steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cover_letter_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
@@ -107,7 +112,7 @@ jobs:
              -sOutputFile=cover_letter_temp.pdf cover_letter.pdf
           mv cover_letter_temp.pdf cover_letter.pdf
 
-      # 7. Compile and Compress Monochrome Cover Letter (if cover_letter.tex changed)
+      # 8. Compile and Compress Monochrome Cover Letter (if cover_letter.tex changed)
       - name: Generate Monochrome Cover Letter tex file
         if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
@@ -130,7 +135,7 @@ jobs:
              -sOutputFile=cover_letter_monochrome_temp.pdf cover_letter_monochrome.pdf
           mv cover_letter_monochrome_temp.pdf cover_letter_monochrome.pdf
 
-      # 8. Compile and Compress Standard References (if references.tex changed and references.pdf not changed)
+      # 9. Compile and Compress Standard References (if references.tex changed and references.pdf not changed)
       - name: Compile Standard References
         if: ${{ (steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.references_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
@@ -148,7 +153,7 @@ jobs:
              -sOutputFile=references_temp.pdf references.pdf
           mv references_temp.pdf references.pdf
 
-      # 9. Compile and Compress Monochrome References (if references.tex changed)
+      # 10. Compile and Compress Monochrome References (if references.tex changed)
       - name: Generate Monochrome References tex file
         if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
@@ -171,44 +176,44 @@ jobs:
              -sOutputFile=references_monochrome_temp.pdf references_monochrome.pdf
           mv references_monochrome_temp.pdf references_monochrome.pdf
 
-      # 10. Configure Git
+      # 11. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 11. Determine PDFs to Add
+      # 12. Determine PDFs to Add
       - name: Determine PDFs to Add
         id: to_add
         run: |
           TO_ADD=""
           # CV
-          if [ "${{ steps.filter.outputs.cv_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.cv_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" cv.pdf cv_monochrome.pdf"
           fi
           # Cover Letter
-          if [ "${{ steps.filter.outputs.cover_letter_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.cover_letter_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" cover_letter.pdf cover_letter_monochrome.pdf"
           fi
           # References
-          if [ "${{ steps.filter.outputs.references_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.references_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" references.pdf references_monochrome.pdf"
           fi
           echo "to_add=$TO_ADD" >> $GITHUB_ENV
 
-      # 12. Add PDF files to Git
+      # 13. Add PDF files to Git
       - name: Add PDF files
         run: |
           if [ -n "${{ env.to_add }}" ]; then
             git add ${{ env.to_add }}
           fi
 
-      # 13. Commit changes
+      # 14. Commit changes
       - name: Commit PDFs
         run: |
           git commit -m "Update CV, Cover Letter, and References PDFs [skip ci]" || echo "No changes to commit"
 
-      # 14. Push changes
+      # 15. Push changes
       - name: Push PDFs
         run: |
           git push origin HEAD:${GITHUB_REF#refs/heads/}

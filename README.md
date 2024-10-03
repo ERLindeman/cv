@@ -1,2 +1,2 @@
-# cv
- My personal Curriculum Vitae
+# Enoch Lindeman's CV
+[![CV Thumbnail](cv_thumbnail.png)](cv.pdf)

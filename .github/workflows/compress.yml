@@ -46,7 +46,7 @@ jobs:
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y ghostscript texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
+          sudo apt-get install -y ghostscript imagemagick poppler-utils texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
 
       # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
       - name: Compile Standard CV
@@ -171,20 +171,27 @@ jobs:
              -sOutputFile=references_monochrome_temp.pdf references_monochrome.pdf
           mv references_monochrome_temp.pdf references_monochrome.pdf
 
-      # 10. Configure Git
+      # 10. Convert CV PDF to Images (only if cv.pdf or preamble.tex changed)
+      - name: Convert CV PDF to Images
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
+        run: |
+          mkdir -p cv_images
+          pdftoppm -png -f 1 -singlefile cv.pdf cv_thumbnail
+
+      # 11. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 11. Determine PDFs to Add
+      # 12. Determine PDFs to Add
       - name: Determine PDFs to Add
         id: to_add
         run: |
           TO_ADD=""
           # CV
           if [ "${{ steps.filter.outputs.cv_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
-            TO_ADD+=" cv.pdf cv_monochrome.pdf"
+            TO_ADD+=" cv.pdf cv_monochrome.pdf cv_thumbnail.png"
           fi
           # Cover Letter
           if [ "${{ steps.filter.outputs.cover_letter_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
@@ -196,19 +203,19 @@ jobs:
           fi
           echo "to_add=$TO_ADD" >> $GITHUB_ENV
 
-      # 12. Add PDF files to Git
+      # 13. Add PDF files to Git
       - name: Add PDF files
         run: |
           if [ -n "${{ env.to_add }}" ]; then
             git add ${{ env.to_add }}
           fi
 
-      # 13. Commit changes
+      # 14. Commit changes
       - name: Commit PDFs
         run: |
           git commit -m "Update CV, Cover Letter, and References PDFs [skip ci]" || echo "No changes to commit"
 
-      # 14. Push changes
+      # 15. Push changes
       - name: Push PDFs
         run: |
           git push origin HEAD:${GITHUB_REF#refs/heads/}

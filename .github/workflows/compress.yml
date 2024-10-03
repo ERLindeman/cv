@@ -26,6 +26,8 @@ jobs:
         uses: dorny/paths-filter@v2
         with:
           filters: |
+            preamble_tex:
+              - 'preamble.tex'
             cv_tex:
               - 'cv.tex'
             cv_pdf:
@@ -41,14 +43,14 @@ jobs:
 
       # 3. Install LaTeX and Dependencies (only if any .tex files have changed)
       - name: Install LaTeX and Dependencies
-        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
 
       # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
       - name: Compile Standard CV
-        if: ${{ steps.filter.outputs.cv_tex == 'true' && steps.filter.outputs.cv_pdf != 'true' }}
+        if: ${{ (steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cv_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
@@ -56,7 +58,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Standard CV PDF
-        if: ${{ steps.filter.outputs.cv_tex == 'true'}}
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -65,12 +67,12 @@ jobs:
 
       # 5. Compile and Compress Monochrome CV (if cv.tex changed)
       - name: Generate Monochrome CV tex file
-        if: ${{ steps.filter.outputs.cv_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           echo '\def\monochrome{}\def\excludephoto{}\input{cv.tex}' > cv_monochrome.tex
 
       - name: Compile Monochrome CV
-        if: ${{ steps.filter.outputs.cv_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv_monochrome.tex
@@ -78,7 +80,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Monochrome CV PDF
-        if: ${{ steps.filter.outputs.cv_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -87,7 +89,7 @@ jobs:
 
       # 6. Compile and Compress Standard Cover Letter (if cover_letter.tex changed and cover_letter.pdf not changed)
       - name: Compile Standard Cover Letter
-        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' && steps.filter.outputs.cover_letter_pdf != 'true' }}
+        if: ${{ (steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cover_letter_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter.tex
@@ -95,7 +97,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Standard Cover Letter PDF
-        if: ${{ steps.filter.outputs.cover_letter_tex == 'true'}}
+        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -104,12 +106,12 @@ jobs:
 
       # 7. Compile and Compress Monochrome Cover Letter (if cover_letter.tex changed)
       - name: Generate Monochrome Cover Letter tex file
-        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           echo '\def\monochrome{}\def\excludephoto{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
 
       - name: Compile Monochrome Cover Letter
-        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter_monochrome.tex
@@ -117,7 +119,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Monochrome Cover Letter PDF
-        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' }}
+        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -126,7 +128,7 @@ jobs:
 
       # 8. Compile and Compress Standard References (if references.tex changed and references.pdf not changed)
       - name: Compile Standard References
-        if: ${{ steps.filter.outputs.references_tex == 'true' && steps.filter.outputs.references_pdf != 'true' }}
+        if: ${{ (steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.references_pdf != 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: references.tex
@@ -134,7 +136,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Standard References PDF
-        if: ${{ steps.filter.outputs.references_tex == 'true'}}
+        if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -143,12 +145,12 @@ jobs:
 
       # 9. Compile and Compress Monochrome References (if references.tex changed)
       - name: Generate Monochrome References tex file
-        if: ${{ steps.filter.outputs.references_tex == 'true' }}
+        if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           echo '\def\monochrome{}\def\excludephoto{}\input{references.tex}' > references_monochrome.tex
 
       - name: Compile Monochrome References
-        if: ${{ steps.filter.outputs.references_tex == 'true' }}
+        if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: references_monochrome.tex
@@ -156,7 +158,7 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
 
       - name: Compress Monochrome References PDF
-        if: ${{ steps.filter.outputs.references_tex == 'true' }}
+        if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
@@ -175,15 +177,15 @@ jobs:
         run: |
           TO_ADD=""
           # CV
-          if [ "${{ steps.filter.outputs.cv_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.cv_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" cv.pdf cv_monochrome.pdf"
           fi
           # Cover Letter
-          if [ "${{ steps.filter.outputs.cover_letter_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.cover_letter_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" cover_letter.pdf cover_letter_monochrome.pdf"
           fi
           # References
-          if [ "${{ steps.filter.outputs.references_tex }}" == "true" ]; then
+          if [ "${{ steps.filter.outputs.references_tex || steps.filter.outputs.preamble_tex }}" == "true" ]; then
             TO_ADD+=" references.pdf references_monochrome.pdf"
           fi
           echo "to_add=$TO_ADD" >> $GITHUB_ENV

@@ -1,5 +1,5 @@
 # .github/workflows/build_cv.yml
-name: Build CV and Cover Letter
+name: Build CV, Cover Letter, and References
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          persist-credentials: true
+          persist-credentials: true  # Allows the workflow to push back to the repository
 
       # 2. Install LaTeX and Dependencies
       - name: Install LaTeX and Dependencies
@@ -26,114 +26,199 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk ghostscript
 
-      # 3. Compile Standard CV using latex-action@v2
+      # 3. Detect Changed Files
+      - name: Detect Changed Files
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters:
+            cv_tex: 'cv.tex'
+            cv_pdf: 'cv.pdf'
+            cover_letter_tex: 'cover_letter.tex'
+            cover_letter_pdf: 'cover_letter.pdf'
+            references_tex: 'references.tex'
+            references_pdf: 'references.pdf'
+
+      # 4. Compile and Compress Standard CV (if cv.tex changed)
       - name: Compile Standard CV
+        if: steps.filter.outputs.cv_tex == 'true'
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
-          compiler: 'latexmk'  # Use latexmk as the compiler
+          compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true  # Continue workflow even if this step fails
 
-      # 4. Generate Monochrome CV tex file
+      - name: Compress Standard CV PDF
+        if: steps.filter.outputs.cv_tex == 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=cv.pdf cv.pdf
+
+      # 5. Compile and Compress Monochrome CV (if cv.tex changed)
       - name: Generate Monochrome CV tex file
+        if: steps.filter.outputs.cv_tex == 'true'
         run: |
           echo '\def\monochrome{}\def\excludephoto{}\input{cv.tex}' > cv_monochrome.tex
 
-      # 5. Compile Monochrome CV using latex-action@v2
       - name: Compile Monochrome CV
+        if: steps.filter.outputs.cv_tex == 'true'
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv_monochrome.tex
-          compiler: 'latexmk'  # Use latexmk as the compiler
+          compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true  # Continue workflow even if this step fails
 
-      # 6. Compress Monochrome CV PDF
       - name: Compress Monochrome CV PDF
+        if: steps.filter.outputs.cv_tex == 'true'
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cv_monochrome_compressed.pdf cv_monochrome.pdf
+             -sOutputFile=cv_monochrome.pdf cv_monochrome.pdf
 
-      # 7. Compile Standard Cover Letter using latex-action@v2
+      # 6. Compile and Compress Standard Cover Letter (if cover_letter.tex changed)
       - name: Compile Standard Cover Letter
+        if: steps.filter.outputs.cover_letter_tex == 'true'
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter.tex
-          compiler: 'latexmk'  # Use latexmk as the compiler
+          compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true  # Continue workflow even if this step fails
 
-      # 8. Generate Monochrome Cover Letter tex file
-      - name: Generate Monochrome Cover Letter tex file
-        run: |
-          echo '\def\monochrome{}\def\excludephoto{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
-
-      # 9. Compile Monochrome Cover Letter using latex-action@v2
-      - name: Compile Monochrome Cover Letter
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: cover_letter_monochrome.tex
-          compiler: 'latexmk'  # Use latexmk as the compiler
-          args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true  # Continue workflow even if this step fails
-
-      # 10. Compress Monochrome Cover Letter PDF
-      - name: Compress Monochrome Cover Letter PDF
+      - name: Compress Standard Cover Letter PDF
+        if: steps.filter.outputs.cover_letter_tex == 'true'
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cover_letter_monochrome_compressed.pdf cover_letter_monochrome.pdf
+             -sOutputFile=cover_letter.pdf cover_letter.pdf
 
-      # 11. Compile Standard References using latex-action@v2
+      # 7. Compile and Compress Monochrome Cover Letter (if cover_letter.tex changed)
+      - name: Generate Monochrome Cover Letter tex file
+        if: steps.filter.outputs.cover_letter_tex == 'true'
+        run: |
+          echo '\def\monochrome{}\def\excludephoto{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
+
+      - name: Compile Monochrome Cover Letter
+        if: steps.filter.outputs.cover_letter_tex == 'true'
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: cover_letter_monochrome.tex
+          compiler: 'latexmk'
+          args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
+
+      - name: Compress Monochrome Cover Letter PDF
+        if: steps.filter.outputs.cover_letter_tex == 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=cover_letter_monochrome.pdf cover_letter_monochrome.pdf
+
+      # 8. Compile and Compress Standard References (if references.tex changed)
       - name: Compile Standard References
+        if: steps.filter.outputs.references_tex == 'true'
         uses: xu-cheng/latex-action@v2
         with:
           root_file: references.tex
           compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true
 
-      # 12. Generate Monochrome References tex file
+      - name: Compress Standard References PDF
+        if: steps.filter.outputs.references_tex == 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=references.pdf references.pdf
+
+      # 9. Compile and Compress Monochrome References (if references.tex changed)
       - name: Generate Monochrome References tex file
+        if: steps.filter.outputs.references_tex == 'true'
         run: |
           echo '\def\monochrome{}\def\excludephoto{}\input{references.tex}' > references_monochrome.tex
 
-      # 13. Compile Monochrome References using latex-action@v2
       - name: Compile Monochrome References
+        if: steps.filter.outputs.references_tex == 'true'
         uses: xu-cheng/latex-action@v2
         with:
           root_file: references_monochrome.tex
           compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
-        continue-on-error: true
 
-      # 14. Compress Monochrome References PDF
       - name: Compress Monochrome References PDF
+        if: steps.filter.outputs.references_tex == 'true'
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=references_monochrome_compressed.pdf references_monochrome.pdf
+             -sOutputFile=references_monochrome.pdf references_monochrome.pdf
 
-      # 15. Configure Git
+      # 10. Compress Standard PDFs if they have changed directly
+      - name: Compress Changed Standard CV PDF
+        if: steps.filter.outputs.cv_pdf == 'true' && steps.filter.outputs.cv_tex != 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=cv.pdf cv.pdf
+
+      - name: Compress Changed Standard Cover Letter PDF
+        if: steps.filter.outputs.cover_letter_pdf == 'true' && steps.filter.outputs.cover_letter_tex != 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=cover_letter.pdf cover_letter.pdf
+
+      - name: Compress Changed Standard References PDF
+        if: steps.filter.outputs.references_pdf == 'true' && steps.filter.outputs.references_tex != 'true'
+        run: |
+          gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+             -dNOPAUSE -dQUIET -dBATCH \
+             -sOutputFile=references.pdf references.pdf
+
+      # 11. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 16. Add PDF files to Git
+      # 12. Determine PDFs to Add
+      - name: Determine PDFs to Add
+        id: to_add
+        run: |
+          TO_ADD=""
+          # CV
+          if [ "${{ steps.filter.outputs.cv_tex }}" == "true" ]; then
+            TO_ADD+=" cv.pdf cv_monochrome.pdf"
+          fi
+          if [ "${{ steps.filter.outputs.cv_pdf }}" == "true" ] && [ "${{ steps.filter.outputs.cv_tex }}" != "true" ]; then
+            TO_ADD+=" cv.pdf"
+          fi
+          # Cover Letter
+          if [ "${{ steps.filter.outputs.cover_letter_tex }}" == "true" ]; then
+            TO_ADD+=" cover_letter.pdf cover_letter_monochrome.pdf"
+          fi
+          if [ "${{ steps.filter.outputs.cover_letter_pdf }}" == "true" ] && [ "${{ steps.filter.outputs.cover_letter_tex }}" != "true" ]; then
+            TO_ADD+=" cover_letter.pdf"
+          fi
+          # References
+          if [ "${{ steps.filter.outputs.references_tex }}" == "true" ]; then
+            TO_ADD+=" references.pdf references_monochrome.pdf"
+          fi
+          if [ "${{ steps.filter.outputs.references_pdf }}" == "true" ] && [ "${{ steps.filter.outputs.references_tex }}" != "true" ]; then
+            TO_ADD+=" references.pdf"
+          fi
+          echo "to_add=$TO_ADD" >> $GITHUB_ENV
+
+      # 13. Add PDF files to Git
       - name: Add PDF files
         run: |
-          git add cv.pdf cover_letter.pdf references.pdf \
-                  cv_monochrome_compressed.pdf cover_letter_monochrome_compressed.pdf references_monochrome_compressed.pdf
+          if [ -n "${{ env.to_add }}" ]; then
+            git add ${{ env.to_add }}
+          fi
 
-      # 17. Commit changes
+      # 14. Commit changes
       - name: Commit PDFs
         run: |
           git commit -m "Update CV, Cover Letter, and References PDFs [skip ci]" || echo "No changes to commit"
 
-      # 18. Push changes
+      # 15. Push changes
       - name: Push PDFs
         run: |
           git push origin HEAD:${GITHUB_REF#refs/heads/}

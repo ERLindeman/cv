@@ -45,6 +45,7 @@ jobs:
       - name: Install LaTeX and Dependencies
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
+          sudo apt-get update
           sudo apt-get install -y ghostscript texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
 
       # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)

@@ -1,0 +1,155 @@
+Positions and Skills
+* Technology Specialist
+   * End-User Support
+   * Network Managemen
+   * Device Management
+   * IBM MaaS 360
+   * End-User Training
+   * Project Management
+   * Cross-Cultural Communication
+   * End-User Guidance Documentation
+   * Data Security
+   * Process Development
+   * Process Automation
+   * Process Documentation
+   * Crisis Avoidance and Mitigation
+   * Orientation
+   * Onboarding
+   * Confidentiality Maintenence
+   * Interviewing
+   * Surveying
+   * Data Aggregation
+   * Data-led Decision Making
+   * Succession Planning
+   * Remote Help Desk Support
+   * Device Configuration
+   * Software Management
+   * Network Troubleshoting
+   * Security Protocols
+   * Technical Training
+   * Collaboration
+   * Resource Management
+   * Adaptability
+   * Device Imaging and Deployment
+   * Inventory Management
+   * Cross-Department Collaboration
+   * Ticketing Systems
+   * Volunteer Management
+   * Dashboard Creation
+   * Cross-Functional Leadership
+   * IT Asset Lifecycle Management & Tracking
+   * Compliance Management
+   * User account cloud management
+   * Powershell
+   * Batch scripting
+   * Microsoft Power Apps
+   * Microsoft PowerBI
+* Developer
+   * Python
+   * Rust
+   * WebAssembly
+   * Progressive Web Apps
+   * RESTful API integration
+   * Full-Stack Development
+   * Frontend Development
+   * Scripting & Automation
+   * Database Design & Management
+   * Cloud Integration
+   * Version Control
+   * Performance Optimization
+   * Cross-Platform Development
+   * Unit Testing & Debugging
+   * CI/CD Methodologies
+   * Agile Methodologies
+   * Analytical Thinking
+   * Open Source best practices
+   * Process Development
+   * Process Automation
+   * Process Documentation
+   * Asynchronous Collaboration
+   * Data Analysis & Visualization
+   * Machine Leaning
+   * Cybersecurity
+   * Technical Writing
+   * Strategic Planning
+   * Compliance Management
+   * User Authentication & Authorization
+   * Edge Software Development & Deployment
+* SEO Specialist
+   * Oracle Magento
+   * Search Engine Optimization (SEO)
+   * Keyword Research
+   * E-Commerce management
+   * A/B Testing
+   * Asynchronous Collaboration
+   * HTML, CSS, JavaScript
+   * Back-End Troubleshooting
+   * PHP
+   * MySQL
+   * Data Cleansing
+   * Process Automation
+   * REST APIs
+   * Python
+   * Autonomous time management
+   * Process Development
+   * Process Documentation
+   * UI/UX design
+   * User Feedback Gathering
+   * Feedback-led development
+   * Software monetization
+   * Data Encryption & Security
+   * Product Launch Strategy
+   * Intellectual Property Management
+   * Networking & Partnership building
+
+Experiences and Achievements
+* Technology Support Specialist / Help Desk (TUHSD)
+   * Oversaw 1:1 deployment of 3,000 devices on campus
+      * Was first point of contact for all issues regarding internet-connected devices on large high school campus
+      * Ensured all staff & students’ devices met their needs, allowing educational environment to operate seamlessly
+   * Created support app for 14,000 users in district
+      * Built Microsoft Power App with O365 and SharePoint data integrations to deliver relevant information to users
+      * Made possible a reduction in user information requests of over 90%, eliminating time users spent waiting for data
+   * Aided in rollout of end-user ticketing system
+      * Reduced response time by ~30%
+      * Reduced forgotten backlog tasks by ~90%
+   * Aided in rollout of improved user account security measures
+      * Ensured multi-factor authentication deployment on all user accounts
+      * Reduced account security incidents by ~75%
+* Owner & Developer (BTL)
+   * Developed personalized wellness app
+      * Conceived, researched, developed, and iterated on chronic illness management app with feedback from potential users in target audience at every stage
+      * Aim to have alpha prototype released in January 2025
+   * Established online media & retail presence
+      * Built a brand with broad social media presence, targeted ad campaigns, and storefronts on numerous platforms
+      * Strategically targeted marketing of books resulted in 3:1 return on investment in ad spend
+   * Automated CI/CD tools
+      * Reduced development overhead by ~80%
+      * Accelerated Development timeline by ~30%
+* Technology Support Specialist (Mission)
+   * Oversaw online transition of teaching
+      * Supported over 3,000 users and devices transitioning from fully in-person to fully remote in Q2 2020
+      * Laid groundwork for and aided in the production and marketing of successful online ad campaign effort
+   * Systemized labor-intensive menial tasks
+      * Automated production of congregation’s weekly program
+      * Created decentralized framework for identification and classification of service opportunities, allowing for increased utilization of volunteer time
+   * Led onboarding, orientation, and training of new missionaries
+      * Allowed for remote onboarding and setup of mobile device management software
+      * Substantially reduced administrative burden of remote transition
+   * Supported and Administered Virtual Meetings
+      * Allowed for seamless transition to remote workflow
+      * Eased burden on participants, allowing for meeting intent to remain in focus
+* SEO Specialist 
+   * Automated process on Oracle Magento Platform to minimize 404 Errors on DTC eCommerce site   
+
+Education and Courses
+* Bachelor of Science in Technological Entrepreneurship and Management
+   * Project Management
+   * Product Development
+   * 3D Modeling and CAD
+   * Innovative Thinking
+* Associate of Science in Computer Science
+   * Software Development
+   * Circuit Design
+   * Process Design
+   * Data Structures & Algorithms

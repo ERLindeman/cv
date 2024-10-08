@@ -143,16 +143,12 @@ Experiences and Achievements
    * Automated process on Oracle Magento Platform to minimize 404 Errors on DTC eCommerce site   
 
 Education and Courses
-* Master of Science in Computer Science
-   * Concentration on Big Data Systems
-   * Expected May 2028
 * Bachelor of Science in Technological Entrepreneurship and Management
    * Project Management
    * Product Development
    * 3D Modeling and CAD
    * Innovative Thinking
    * Current 4.0 GPA
-   * Pursuant to Master of Science in Computer Science
    * Expected May 2026
 * Associate of Science in Computer Science
    * Software Development

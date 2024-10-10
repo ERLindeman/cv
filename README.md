@@ -1,1 +1,1 @@
-[![CV Thumbnail](cv_thumbnail_colorful.png)](cv_colorful.pdf)
+[![CV Thumbnail](cv_colorful_thumbnail.png)](cv_colorful.pdf)

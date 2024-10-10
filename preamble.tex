@@ -1,15 +1,14 @@
-\documentclass[10pt,a4paper,ragged2e,landscape]{altacv}
+% preamble.tex
+
+\documentclass[10pt,a4paper,ragged2e]{altacv}
 
 %% MUST compile with XeLaTeX or LuaLaTeX
 
 \geometry{
   left=0.5cm,
-  right=14.5cm,
-  marginparwidth=14cm,
-  marginparsep=0.5cm,
+  right=0.5cm,
   top=0.5cm,
   bottom=0.5cm,
-  landscape
 }
 
 \setmainfont{NotoSans_ExtraCondensed-Regular}[
@@ -20,13 +19,6 @@
 \usepackage{multicol}
 \usepackage{ragged2e}
 \usepackage{etoolbox}
-\definecolor{Azure}{HTML}{007fff}
-\definecolor{Gray}{HTML}{4f4f4f}
-\definecolor{Black}{HTML}{000000}
-\colorlet{heading}{Azure}
-\colorlet{accent}{Azure}
-\colorlet{emphasis}{Black}
-\colorlet{body}{Gray}
 
 % Customizations
 \renewcommand{\itemmarker}{{\small\textbullet}}
@@ -43,31 +35,34 @@
 \setlength{\columnsep}{0.5cm}
 
 % Conditional flags
-\newif\ifmonochrome
-\newif\ifexcludephoto
+\newif\ifcolorful
 
 % Set defaults
-\monochromefalse
-\excludephotofalse
+\colorfulfalse
 
 % If flags are defined externally, set them accordingly
-\ifdefined\monochrome
-  \monochrometrue
-\fi
-
-\ifdefined\excludephoto
-  \excludephototrue
+\ifdefined\colorful
+  \colorfultrue
 \fi
 
 % Conditional color settings
-\ifmonochrome
-  \definecolor{Azure}{HTML}{000000}
+\definecolor{Azure}{HTML}{000000}
+\definecolor{Gray}{HTML}{4f4f4f}
+\definecolor{Black}{HTML}{000000}
+\colorlet{heading}{Black}
+\colorlet{accent}{Black}
+\colorlet{emphasis}{Black}
+\colorlet{body}{Gray}
+
+\ifcolorful
+  \definecolor{Azure}{HTML}{007fff}
   \definecolor{Gray}{HTML}{4f4f4f}
   \definecolor{Black}{HTML}{000000}
-  \colorlet{heading}{Black}
-  \colorlet{accent}{Black}
+  \colorlet{heading}{Azure}
+  \colorlet{accent}{Azure}
   \colorlet{emphasis}{Black}
   \colorlet{body}{Gray}
+  \photo{2.5cm}{Enoch}
 \fi
 
 \name{Enoch Lindeman}

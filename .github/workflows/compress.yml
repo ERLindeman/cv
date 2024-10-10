@@ -41,16 +41,16 @@ jobs:
             references_pdf:
               - 'references.pdf'
 
-      # 3. Install LaTeX and Dependencies (only if any .tex files have changed)
+      # 3. Install LaTeX and Dependencies (including optipng)
       - name: Install LaTeX and Dependencies
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           sudo apt-get update
-          sudo apt-get install -y ghostscript imagemagick poppler-utils texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk
+          sudo apt-get install -y ghostscript imagemagick poppler-utils texlive-xetex texlive-fonts-recommended texlive-latex-extra latexmk optipng
 
-      # 4. Compile and Compress Standard CV (if cv.tex changed and cv.pdf not changed)
-      - name: Compile Standard CV
-        if: ${{ (steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cv_pdf != 'true' }}
+      # 4. Compile Monochrome CV (default)
+      - name: Compile Monochrome CV
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cv.tex
@@ -58,7 +58,8 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Standard CV PDF
+      # 5. Compress Monochrome CV PDF
+      - name: Compress Monochrome CV PDF
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
@@ -66,32 +67,33 @@ jobs:
              -sOutputFile=cv_temp.pdf cv.pdf
           mv cv_temp.pdf cv.pdf
 
-      # 5. Compile and Compress Monochrome CV (if cv.tex changed)
-      - name: Generate Monochrome CV tex file
+      # 6. Compile Colorful CV
+      - name: Generate Colorful CV tex file
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
-          echo '\def\monochrome{}\def\excludephoto{}\input{cv.tex}' > cv_monochrome.tex
+          echo '\def\colorful{}\input{cv.tex}' > cv_colorful.tex
 
-      - name: Compile Monochrome CV
+      - name: Compile Colorful CV
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: cv_monochrome.tex
+          root_file: cv_colorful.tex
           compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Monochrome CV PDF
+      # 7. Compress Colorful CV PDF
+      - name: Compress Colorful CV PDF
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cv_monochrome_temp.pdf cv_monochrome.pdf
-          mv cv_monochrome_temp.pdf cv_monochrome.pdf
+             -sOutputFile=cv_colorful_temp.pdf cv_colorful.pdf
+          mv cv_colorful_temp.pdf cv_colorful.pdf
 
-      # 6. Compile and Compress Standard Cover Letter (if cover_letter.tex changed and cover_letter.pdf not changed)
-      - name: Compile Standard Cover Letter
-        if: ${{ (steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.cover_letter_pdf != 'true' }}
+      # 8. Compile Monochrome Cover Letter (default)
+      - name: Compile Monochrome Cover Letter
+        if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: cover_letter.tex
@@ -99,7 +101,8 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Standard Cover Letter PDF
+      # 9. Compress Monochrome Cover Letter PDF
+      - name: Compress Monochrome Cover Letter PDF
         if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
@@ -107,32 +110,33 @@ jobs:
              -sOutputFile=cover_letter_temp.pdf cover_letter.pdf
           mv cover_letter_temp.pdf cover_letter.pdf
 
-      # 7. Compile and Compress Monochrome Cover Letter (if cover_letter.tex changed)
-      - name: Generate Monochrome Cover Letter tex file
+      # 10. Compile Colorful Cover Letter
+      - name: Generate Colorful Cover Letter tex file
         if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
-          echo '\def\monochrome{}\def\excludephoto{}\input{cover_letter.tex}' > cover_letter_monochrome.tex
+          echo '\def\colorful{}\input{cover_letter.tex}' > cover_letter_colorful.tex
 
-      - name: Compile Monochrome Cover Letter
+      - name: Compile Colorful Cover Letter
         if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: cover_letter_monochrome.tex
+          root_file: cover_letter_colorful.tex
           compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Monochrome Cover Letter PDF
+      # 11. Compress Colorful Cover Letter PDF
+      - name: Compress Colorful Cover Letter PDF
         if: ${{ steps.filter.outputs.cover_letter_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=cover_letter_monochrome_temp.pdf cover_letter_monochrome.pdf
-          mv cover_letter_monochrome_temp.pdf cover_letter_monochrome.pdf
+             -sOutputFile=cover_letter_colorful_temp.pdf cover_letter_colorful.pdf
+          mv cover_letter_colorful_temp.pdf cover_letter_colorful.pdf
 
-      # 8. Compile and Compress Standard References (if references.tex changed and references.pdf not changed)
-      - name: Compile Standard References
-        if: ${{ (steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true') && steps.filter.outputs.references_pdf != 'true' }}
+      # 12. Compile Monochrome References (default)
+      - name: Compile Monochrome References
+        if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
           root_file: references.tex
@@ -140,7 +144,8 @@ jobs:
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Standard References PDF
+      # 13. Compress Monochrome References PDF
+      - name: Compress Monochrome References PDF
         if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
@@ -148,74 +153,87 @@ jobs:
              -sOutputFile=references_temp.pdf references.pdf
           mv references_temp.pdf references.pdf
 
-      # 9. Compile and Compress Monochrome References (if references.tex changed)
-      - name: Generate Monochrome References tex file
+      # 14. Compile Colorful References
+      - name: Generate Colorful References tex file
         if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
-          echo '\def\monochrome{}\def\excludephoto{}\input{references.tex}' > references_monochrome.tex
+          echo '\def\colorful{}\input{references.tex}' > references_colorful.tex
 
-      - name: Compile Monochrome References
+      - name: Compile Colorful References
         if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: references_monochrome.tex
+          root_file: references_colorful.tex
           compiler: 'latexmk'
           args: "-xelatex -nobibtex -f -synctex=1 -interaction=nonstopmode -file-line-error -outdir=."
         continue-on-error: true
 
-      - name: Compress Monochrome References PDF
+      # 15. Compress Colorful References PDF
+      - name: Compress Colorful References PDF
         if: ${{ steps.filter.outputs.references_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' }}
         run: |
           gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
              -dNOPAUSE -dQUIET -dBATCH \
-             -sOutputFile=references_monochrome_temp.pdf references_monochrome.pdf
-          mv references_monochrome_temp.pdf references_monochrome.pdf
+             -sOutputFile=references_colorful_temp.pdf references_colorful.pdf
+          mv references_colorful_temp.pdf references_colorful.pdf
 
-      # 10. Convert CV PDF to Images (only if cv.pdf or preamble.tex changed)
-      - name: Convert CV PDF to Images
+      # 16. Convert CV Colorful PDF to Image
+      - name: Convert CV Colorful PDF to Image
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
         run: |
-          mkdir -p cv_images
-          pdftoppm -png -f 1 -singlefile cv.pdf cv_thumbnail
+          pdftoppm -png -f 1 -singlefile cv_colorful.pdf cv_colorful_thumbnail
 
-      # 11. Configure Git
+      # 17. Compress CV Colorful Thumbnail Image
+      - name: Compress CV Colorful Thumbnail Image
+        if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
+        run: |
+          mogrify -strip -resize 800x cv_colorful_thumbnail.png
+
+      # Optional: Further Optimize Image with optipng
+      # Uncomment the following step if you wish to further optimize the PNG image
+      # - name: Optimize CV Colorful Thumbnail Image with optipng
+      #   if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
+      #   run: |
+      #     optipng -o7 cv_colorful_thumbnail.png
+
+      # 18. Configure Git
       - name: Configure Git
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # 12. Determine PDFs to Add
-      - name: Determine PDFs to Add
+      # 19. Determine PDFs and Images to Add
+      - name: Determine PDFs and Images to Add
         id: to_add
         run: |
           TO_ADD=""
-          # CV
+          # Monochrome CV
           if [ "${{ steps.filter.outputs.cv_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
-            TO_ADD+=" cv.pdf cv_monochrome.pdf cv_thumbnail.png"
+            TO_ADD+=" cv.pdf cv_colorful.pdf cv_colorful_thumbnail.png"
           fi
-          # Cover Letter
+          # Monochrome Cover Letter
           if [ "${{ steps.filter.outputs.cover_letter_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
-            TO_ADD+=" cover_letter.pdf cover_letter_monochrome.pdf"
+            TO_ADD+=" cover_letter.pdf cover_letter_colorful.pdf"
           fi
-          # References
+          # Monochrome References
           if [ "${{ steps.filter.outputs.references_tex }}" == "true" ] || [ "${{ steps.filter.outputs.preamble_tex }}" == "true" ]; then
-            TO_ADD+=" references.pdf references_monochrome.pdf"
+            TO_ADD+=" references.pdf references_colorful.pdf"
           fi
           echo "to_add=$TO_ADD" >> $GITHUB_ENV
 
-      # 13. Add PDF files to Git
-      - name: Add PDF files
+      # 20. Add PDF and Image files to Git
+      - name: Add PDF and Image files
         run: |
           if [ -n "${{ env.to_add }}" ]; then
-            git add ${{ env.to_add }}
+            git add ${{ env.to_add }} cv_colorful_thumbnail.png
           fi
 
-      # 14. Commit changes
-      - name: Commit PDFs
+      # 21. Commit PDFs and Images
+      - name: Commit PDFs and Images
         run: |
-          git commit -m "Update CV, Cover Letter, and References PDFs [skip ci]" || echo "No changes to commit"
+          git commit -m "Update CV, Cover Letter, References PDFs, and Preview Image [skip ci]" || echo "No changes to commit"
 
-      # 15. Push changes
-      - name: Push PDFs
+      # 22. Push PDFs and Images
+      - name: Push PDFs and Images
         run: |
           git push origin HEAD:${GITHUB_REF#refs/heads/}

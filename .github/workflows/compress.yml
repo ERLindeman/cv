@@ -181,14 +181,13 @@ jobs:
       - name: Convert CV Colorful PDF to Image
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
         run: |
-          mkdir -p cv_images
           pdftoppm -png -f 1 -singlefile cv_colorful.pdf cv_colorful_thumbnail
 
       # 17. Compress CV Colorful Thumbnail Image
       - name: Compress CV Colorful Thumbnail Image
         if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
         run: |
-          mogrify -strip -resize 800x cv_images/cv_colorful_thumbnail.png
+          mogrify -strip -resize 800x cv_colorful_thumbnail.png
 
       # Optional: Further Optimize Image with optipng
       # Uncomment the following step if you wish to further optimize the PNG image

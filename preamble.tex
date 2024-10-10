@@ -1,3 +1,5 @@
+% preamble.tex
+
 \documentclass[10pt,a4paper,ragged2e]{altacv}
 
 %% MUST compile with XeLaTeX or LuaLaTeX
@@ -6,7 +8,7 @@
   left=0.5cm,
   right=0.5cm,
   top=0.5cm,
-  bottom=0.5cm
+  bottom=0.5cm,
 }
 
 \setmainfont{NotoSans_ExtraCondensed-Regular}[
@@ -33,27 +35,27 @@
 \setlength{\columnsep}{0.5cm}
 
 % Conditional flags
-\newif\ifmonochrome
 \newif\ifcolorful
-\newif\ifexcludephoto
 
 % Set defaults
-\monochrometrue % Monochrome is default
 \colorfulfalse
-\excludephotofalse
 
 % If flags are defined externally, set them accordingly
 \ifdefined\colorful
   \colorfultrue
-  \monochromefalse
-\fi
-
-\ifdefined\excludephoto
-  \excludephototrue
 \fi
 
 % Conditional color settings
-\ifmonochrome
+\ifcolorful
+  \definecolor{Azure}{HTML}{007fff}
+  \definecolor{Gray}{HTML}{4f4f4f}
+  \definecolor{Black}{HTML}{000000}
+  \colorlet{heading}{Azure}
+  \colorlet{accent}{Azure}
+  \colorlet{emphasis}{Black}
+  \colorlet{body}{Gray}
+  \photo{2.5cm}{Enoch}
+\else
   \definecolor{Azure}{HTML}{000000}
   \definecolor{Gray}{HTML}{4f4f4f}
   \definecolor{Black}{HTML}{000000}
@@ -63,21 +65,11 @@
   \colorlet{body}{Gray}
 \fi
 
-\ifcolorful
-  \definecolor{Azure}{HTML}{007fff}
-  \definecolor{Gray}{HTML}{4f4f4f}
-  \definecolor{Black}{HTML}{000000}
-  \colorlet{heading}{Azure}
-  \colorlet{accent}{Azure}
-  \colorlet{emphasis}{Black}
-  \colorlet{body}{Gray}
-\fi
-
-  \name{Enoch Lindeman}
-  \tagline{Technology Support Specialist / Help Desk \\Cofounder \& Owner, by The Lindemans, LLC}
-  \personalinfo{
-    \mailaddress{enoch@lindeman.family}
-    \phone{(619) 333-8221}\\
-    \linkedin{www.linkedin.com/in/enoch-lindeman}
-    \location{San Diego, CA}
-  }
+\name{Enoch Lindeman}
+\tagline{Technology Support Specialist / Help Desk \\Cofounder \& Owner, by The Lindemans, LLC}
+\personalinfo{
+  \mailaddress{enoch@lindeman.family}
+  \phone{(619) 333-8221}\\
+  \linkedin{www.linkedin.com/in/enoch-lindeman}
+  \location{San Diego, CA}
+}

@@ -46,6 +46,14 @@
 \fi
 
 % Conditional color settings
+\definecolor{Azure}{HTML}{000000}
+\definecolor{Gray}{HTML}{4f4f4f}
+\definecolor{Black}{HTML}{000000}
+\colorlet{heading}{Black}
+\colorlet{accent}{Black}
+\colorlet{emphasis}{Black}
+\colorlet{body}{Gray}
+
 \ifcolorful
   \definecolor{Azure}{HTML}{007fff}
   \definecolor{Gray}{HTML}{4f4f4f}
@@ -55,16 +63,6 @@
   \colorlet{emphasis}{Black}
   \colorlet{body}{Gray}
   \photo{2.5cm}{Enoch}
-\fi
-
-\ifnotcolorful
-  \definecolor{Azure}{HTML}{000000}
-  \definecolor{Gray}{HTML}{4f4f4f}
-  \definecolor{Black}{HTML}{000000}
-  \colorlet{heading}{Black}
-  \colorlet{accent}{Black}
-  \colorlet{emphasis}{Black}
-  \colorlet{body}{Gray}
 \fi
 
 \name{Enoch Lindeman}

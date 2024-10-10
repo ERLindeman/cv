@@ -17,13 +17,6 @@
 \usepackage{multicol}
 \usepackage{ragged2e}
 \usepackage{etoolbox}
-\definecolor{Azure}{HTML}{007fff}
-\definecolor{Gray}{HTML}{4f4f4f}
-\definecolor{Black}{HTML}{000000}
-\colorlet{heading}{Azure}
-\colorlet{accent}{Azure}
-\colorlet{emphasis}{Black}
-\colorlet{body}{Gray}
 
 % Customizations
 \renewcommand{\itemmarker}{{\small\textbullet}}
@@ -41,15 +34,18 @@
 
 % Conditional flags
 \newif\ifmonochrome
+\newif\ifcolorful
 \newif\ifexcludephoto
 
 % Set defaults
-\monochromefalse
+\monochrometrue % Monochrome is default
+\colorfulfalse
 \excludephotofalse
 
 % If flags are defined externally, set them accordingly
-\ifdefined\monochrome
-  \monochrometrue
+\ifdefined\colorful
+  \colorfultrue
+  \monochromefalse
 \fi
 
 \ifdefined\excludephoto
@@ -63,6 +59,16 @@
   \definecolor{Black}{HTML}{000000}
   \colorlet{heading}{Black}
   \colorlet{accent}{Black}
+  \colorlet{emphasis}{Black}
+  \colorlet{body}{Gray}
+\fi
+
+\ifcolorful
+  \definecolor{Azure}{HTML}{007fff}
+  \definecolor{Gray}{HTML}{4f4f4f}
+  \definecolor{Black}{HTML}{000000}
+  \colorlet{heading}{Azure}
+  \colorlet{accent}{Azure}
   \colorlet{emphasis}{Black}
   \colorlet{body}{Gray}
 \fi

@@ -194,7 +194,7 @@ jobs:
       # - name: Optimize CV Colorful Thumbnail Image with optipng
       #   if: ${{ steps.filter.outputs.cv_tex == 'true' || steps.filter.outputs.preamble_tex == 'true' || steps.filter.outputs.cv_pdf == 'true' }}
       #   run: |
-      #     optipng -o7 cv_images/cv_colorful_thumbnail.png
+      #     optipng -o7 cv_colorful_thumbnail.png
 
       # 18. Configure Git
       - name: Configure Git
@@ -225,7 +225,7 @@ jobs:
       - name: Add PDF and Image files
         run: |
           if [ -n "${{ env.to_add }}" ]; then
-            git add ${{ env.to_add }} cv_images/cv_colorful_thumbnail.png
+            git add ${{ env.to_add }} cv_colorful_thumbnail.png
           fi
 
       # 21. Commit PDFs and Images

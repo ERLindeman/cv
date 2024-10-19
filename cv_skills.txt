@@ -1,7 +1,7 @@
 Positions and Skills
 * Technology Specialist
    * End-User Support
-   * Network Managemen
+   * Network Management
    * Device Management
    * IBM MaaS 360
    * End-User Training
@@ -15,7 +15,7 @@ Positions and Skills
    * Crisis Avoidance and Mitigation
    * Orientation
    * Onboarding
-   * Confidentiality Maintenence
+   * Confidentiality Maintenance
    * Interviewing
    * Surveying
    * Data Aggregation
@@ -24,7 +24,7 @@ Positions and Skills
    * Remote Help Desk Support
    * Device Configuration
    * Software Management
-   * Network Troubleshoting
+   * Network Troubleshooting
    * Security Protocols
    * Technical Training
    * Collaboration
@@ -39,17 +39,68 @@ Positions and Skills
    * Cross-Functional Leadership
    * IT Asset Lifecycle Management & Tracking
    * Compliance Management
-   * User account cloud management
+   * User Account Cloud Management
    * Powershell
-   * Batch scripting
+   * Batch Scripting
    * Microsoft Power Apps
    * Microsoft PowerBI
+   * Virtualization Technologies (e.g., VMware, VirtualBox)
+   * Containerization (e.g., Docker, Kubernetes)
+   * Automation Tools (e.g., Ansible, Jenkins)
+   * Scripting Languages (e.g., Bash, Perl)
+   * Technical Documentation
+   * Incident Management
+   * Service Level Agreements (SLAs)
+   * User Experience (UX) Support
+   * Hardware Troubleshooting
+   * ITIL Framework
+   * Change Management
+   * Risk Assessment
+   * Technical Problem Solving
+   * Customer Service Excellence
+   * Time Management
+   * Conflict Resolution
+   * Strategic Planning
+   * Continuous Improvement
+   * Multitasking
+   * Initiative
+   * Attention to Detail
+   * Critical Thinking
+   * Problem-Solving
+   * Leadership
+   * Mentorship
+   * Emotional Intelligence
+   * Negotiation Skills
+   * Decision-Making
+   * Creativity
+   * Public Speaking
+   * Active Listening
+   * Empathy
+   * Team Building
+   * Organizational Skills
+   * Delegation
+   * Performance Management
+   * Client Relationship Management
+   * Technical Sales Support
+   * Business Analysis
+   * Vendor Management
+   * Compliance Auditing
+   * Disaster Recovery Planning
+   * Remote Access Solutions
+   * Mobile Device Management (MDM)
+   * Endpoint Security
+   * Content Management Systems (e.g., WordPress, Shopify)
+   * Google Analytics
+   * SEM Tools (e.g., SEMrush, Moz, Ahrefs)
+   * Digital Marketing Strategies
+   * Marketing Automation Tools (e.g., HubSpot, Marketo)
+
 * Developer
    * Python
    * Rust
    * WebAssembly
    * Progressive Web Apps
-   * RESTful API integration
+   * RESTful API Integration
    * Full-Stack Development
    * Frontend Development
    * Scripting & Automation
@@ -62,45 +113,59 @@ Positions and Skills
    * CI/CD Methodologies
    * Agile Methodologies
    * Analytical Thinking
-   * Open Source best practices
+   * Open Source Best Practices
    * Process Development
    * Process Automation
    * Process Documentation
    * Asynchronous Collaboration
    * Data Analysis & Visualization
-   * Machine Leaning
+   * Machine Learning
    * Cybersecurity
    * Technical Writing
    * Strategic Planning
    * Compliance Management
    * User Authentication & Authorization
    * Edge Software Development & Deployment
-* SEO Specialist
-   * Oracle Magento
-   * Search Engine Optimization (SEO)
-   * Keyword Research
-   * E-Commerce management
-   * A/B Testing
-   * Asynchronous Collaboration
-   * HTML, CSS, JavaScript
-   * Back-End Troubleshooting
-   * PHP
-   * MySQL
-   * Data Cleansing
-   * Process Automation
-   * REST APIs
-   * Python
-   * Autonomous time management
-   * Process Development
-   * Process Documentation
-   * UI/UX design
-   * User Feedback Gathering
-   * Feedback-led development
-   * Software monetization
-   * Data Encryption & Security
-   * Product Launch Strategy
-   * Intellectual Property Management
-   * Networking & Partnership building
+   * Frontend Frameworks (e.g., React, Angular, Vue)
+   * Backend Frameworks (e.g., Node.js, Django, Flask)
+   * API Development
+   * Microservices Architecture
+   * Mobile Development (e.g., React Native, Flutter)
+   * GraphQL
+   * NoSQL Databases (e.g., MongoDB, Cassandra)
+   * SQL Optimization
+   * DevOps Practices
+   * Test-Driven Development (TDD)
+   * Continuous Integration Tools (e.g., Travis CI, CircleCI)
+   * Code Review Processes
+   * Software Design Patterns
+   * Modular Programming
+   * Responsive Design
+   * Accessibility Standards (e.g., WCAG)
+   * Git Workflow Management
+   * Cloud Platforms (e.g., AWS, Azure, Google Cloud)
+   * Serverless Architecture
+   * API Documentation
+   * Automated Testing
+   * Performance Monitoring
+   * Container Orchestration
+   * Infrastructure as Code (IaC)
+   * Security Best Practices
+   * Database Migration
+   * Load Balancing
+   * Caching Strategies
+   * API Rate Limiting
+   * Real-Time Data Processing
+   * Web Security (e.g., OWASP)
+   * Continuous Deployment
+   * Feature Flagging
+   * Code Refactoring
+   * Scalability Solutions
+   * Event-Driven Architecture
+   * Data Warehousing
+   * Big Data Technologies (e.g., Hadoop, Spark)
+   * Server Management
+   * API Gateway Implementation
 
 Experiences and Achievements
 * Technology Support Specialist / Help Desk (TUHSD)
@@ -116,6 +181,31 @@ Experiences and Achievements
    * Aided in rollout of improved user account security measures
       * Ensured multi-factor authentication deployment on all user accounts
       * Reduced account security incidents by ~75%
+   * Managed IT inventory and asset tracking
+      * Streamlined inventory processes, reducing loss by 20%
+      * Implemented tracking system that improved asset utilization by 15%
+   * Developed and maintained technical documentation
+      * Created comprehensive guides that decreased onboarding time by 25%
+      * Updated existing documentation, enhancing clarity and usability for end-users
+   * Coordinated cross-departmental IT projects
+      * Led initiatives that improved inter-departmental communication and efficiency
+      * Facilitated collaboration between IT and other departments, resulting in a 10% increase in project success rates
+   * Implemented network monitoring tools
+      * Enhanced network reliability, reducing downtime by 20%
+      * Proactively identified and resolved network issues, improving overall performance
+   * Conducted regular security audits
+      * Identified and mitigated vulnerabilities, strengthening data protection
+      * Ensured compliance with industry security standards, avoiding potential breaches
+   * Developed disaster recovery plans
+      * Established protocols that minimized data loss during outages
+      * Reduced system recovery time by 40% through effective planning
+   * Optimized help desk workflows
+      * Introduced automation scripts that increased ticket resolution speed by 25%
+      * Enhanced user satisfaction scores by 15% through improved support processes
+   * Trained and mentored IT interns
+      * Increased team efficiency by 20% through effective mentorship
+      * Reduced onboarding time for new hires by 30% with structured training programs
+
 * Owner & Developer (BTL)
    * Developed personalized wellness app
       * Conceived, researched, developed, and iterated on chronic illness management app with feedback from potential users in target audience at every stage
@@ -126,6 +216,34 @@ Experiences and Achievements
    * Automated CI/CD tools
       * Reduced development overhead by ~80%
       * Accelerated Development timeline by ~30%
+   * Designed and implemented user authentication systems
+      * Enhanced app security, increasing user trust and retention by 40%
+      * Integrated OAuth and JWT for secure access management
+   * Conducted market research and user testing
+      * Identified key user needs, informing feature development and improving user satisfaction by 25%
+      * Analyzed competitor products, positioning the app effectively in the market
+   * Managed financial planning and budgeting
+      * Optimized budget allocation, reducing costs by 15%
+      * Monitored expenses and revenues, ensuring financial sustainability
+   * Developed API integrations with third-party services
+      * Enabled seamless data exchange, enhancing app functionality and user experience
+      * Increased app interoperability, attracting more users
+   * Implemented data analytics tracking
+      * Provided insights into user behavior, guiding feature enhancements
+      * Improved data-driven decision-making, boosting app performance by 20%
+   * Created comprehensive user guides and support materials
+      * Reduced user onboarding time by 30%
+      * Enhanced user self-service capabilities, decreasing support requests
+   * Launched beta testing programs
+      * Engaged over 500 users in beta testing, collecting valuable feedback for improvements
+      * Identified and resolved 95% of critical bugs before official launch
+   * Developed marketing automation workflows
+      * Streamlined email marketing campaigns, increasing open rates by 25%
+      * Automated social media postings, enhancing online engagement by 20%
+   * Secured funding and investment
+      * Successfully raised $50,000 in seed funding to support app development
+      * Established relationships with investors, facilitating future funding rounds
+
 * Technology Support Specialist (Mission)
    * Oversaw online transition of teaching
       * Supported over 3,000 users and devices transitioning from fully in-person to fully remote in Q2 2020
@@ -139,8 +257,30 @@ Experiences and Achievements
    * Supported and Administered Virtual Meetings
       * Allowed for seamless transition to remote workflow
       * Eased burden on participants, allowing for meeting intent to remain in focus
-* SEO Specialist 
-   * Automated process on Oracle Magento Platform to minimize 404 Errors on DTC eCommerce site   
+   * Implemented remote troubleshooting protocols
+      * Decreased downtime by 35% through efficient remote support strategies
+      * Enhanced user satisfaction with faster resolution times
+   * Developed training materials and resources
+      * Created comprehensive training modules that improved user competency by 20%
+      * Updated resources regularly to keep up with technological advancements
+   * Enhanced cybersecurity measures for remote operations
+      * Implemented secure VPN access, reducing security incidents by 40%
+      * Conducted cybersecurity training sessions, increasing overall security awareness by 30%
+   * Optimized remote collaboration tools
+      * Integrated new collaboration platforms, improving team productivity by 25%
+      * Reduced software-related issues by standardizing tool usage across the organization
+   * Managed virtual infrastructure
+      * Ensured high availability and performance of virtual systems, maintaining 99.9% uptime
+      * Streamlined virtual resource allocation, reducing costs by 10%
+   * Developed and enforced IT policies and procedures
+      * Standardized IT operations, ensuring compliance and reducing errors by 15%
+      * Implemented best practices that enhanced overall IT governance
+   * Coordinated with external IT vendors and service providers
+      * Negotiated contracts that reduced service costs by 20%
+      * Improved service delivery standards through effective vendor management
+   * Monitored and reported on IT performance metrics
+      * Created dashboards that provided real-time insights into IT operations
+      * Utilized data to drive continuous improvement initiatives, enhancing IT efficiency by 18%
 
 Education and Courses
 * Bachelor of Science in Technological Entrepreneurship and Management
